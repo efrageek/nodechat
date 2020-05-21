@@ -1,31 +1,39 @@
-const db = require('mongoose');
 const Model = require('./model');
 
-//mongodb+srv://USER:USER1234@telegrom-lhpui.mongodb.net/test
-
-db.Promise = global.Promise;
-db.connect('mongodb+srv://USER:USER1234@telegrom-lhpui.mongodb.net/test', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-console.log('[db] conectada con exito');
-
 function addMessage (message) {
-    //  list.push(message);
     const myMessage = new Model(message);
     myMessage.save();
  }
  
-async function getMessage() {
-     //return list;
-     const messages = await Model.find();
+async function getMessage(filterUser) {
+    let filter = {};
+    if (filterUser) {
+        filter = { user: filterUser }
+    }
+     const messages = await Model.find(filter);
      return messages;
 } 
 
+async function updateText(id, message) {
+    const foundMessage = await Model.findOne({
+        _id: id
+    });
 
+    foundMessage.message = message;
+    const newMessage = await foundMessage.save();
+
+    return newMessage;
+}
+
+function removeMessage(id) {
+    return Model.deleteOne({
+        _id: id
+    });
+}
 
 module.exports = {
     add: addMessage,
-    list: getMessage
+    list: getMessage,
+    updateText: updateText,
+    remove: removeMessage
 }

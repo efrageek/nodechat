@@ -27,13 +27,43 @@ function addMessage(user, message) {
     
 }
 
-function getMessage() {
+function getMessage(filterUser) {
     return new Promise ((resolve,reject) => {
-        resolve (store.list());
+        resolve (store.list(filterUser));
     })
 }
 
+ function updateMessage(id, message) {
+    return new Promise(async (res, rej) => {
+        if (!id || !message) {
+            rej('Invalid data');
+            return false;
+        }
+
+        const result = await store.updateText(id, message);
+        res(result);
+    })
+}
+
+function deleteMessage(id) {
+    return new Promise((resolve, reject) => {
+        if (!id) {
+            reject('id invalido');
+            return false
+        }
+        
+        store.remove(id)
+            .then(() => {
+                resolve();
+            })
+            .catch(e => {
+                reject(e)
+            })
+    });
+}
 module.exports = {
     addMessage,
-    getMessage
+    getMessage,
+    updateMessage,
+    deleteMessage
 }
