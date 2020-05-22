@@ -13,17 +13,13 @@ router.post('/', function(req, res) {
         })
 });
 
-router.get('/', (req, res) => {
-    console.log(req);
-
-    // const filterUser = req.query.user || null;
-    // controller.getMessage(filterMessage)
-    // .then((messageList) => {
-    //     response.succes(req, res, messageList, 200);
-    // })
-    // .catch(e => {
-    //     response.error(req, res, 'Error inesperado', 500, e);
-    // })
+router.get('/', async (req, res) => {
+    try {
+        const userList = await controller.getUser();
+        response.succes(req, res, userList, 200);
+    } catch (e) {
+        response.error(req, res, 'Error inesperado', 500, e);
+    }
 })
 
 
