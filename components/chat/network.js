@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/', async (req, res) => {
+router.get('/:userId', async (req, res) => {
     const chats = await controller.getChat(req.params.userId);
     try {
         response.succes(req, res, chats, 200)

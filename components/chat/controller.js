@@ -3,7 +3,7 @@ const store = require('./store');
 
 function createChat(users) {
     return new Promise ((resolve, reject) => {
-        if (!users) {
+        if (!users || !Array.isArray(users)) {
             console.error('[Chat controller] no hay usuario');
             reject('Datos incompletos');
             return false
