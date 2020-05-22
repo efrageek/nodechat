@@ -4,7 +4,7 @@ const store = require('./store');
 function createChat(users) {
     return new Promise ((resolve, reject) => {
         if (!users || !Array.isArray(users)) {
-            console.error('[Chat controller] no hay usuario');
+            console.error('[Chat controller] Usuario no existe o es invalido');
             reject('Datos incompletos');
             return false
         }
@@ -14,14 +14,12 @@ function createChat(users) {
             date: new Date()
         }
         
-        store.create(fullChat);
+        return store.create(fullChat);
         
         
         console.group('controller.createChat')
         console.log(fullChat);
         console.groupEnd('controller.createChat')
-        resolve(fullChat);
-
     })
     
 }
