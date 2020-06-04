@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 const response = require('../../network/response');
 const controller = require('./controller');
 const router = express.Router();
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
    
-    controller.addMessage(req.body.user, req.body.message)
+    controller.addMessage(req.body.chat, req.body.user, req.body.message)
         .then((fullMessage) => {
             response.succes(req, res, fullMessage, 201);
         })
