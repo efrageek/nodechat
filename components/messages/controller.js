@@ -19,7 +19,8 @@ function addMessage(chat, user, message, file) {
             chat: chat,
             user: user,
             message: message,
-            date: new Date()
+            date: new Date(),
+            file: fileUrl
         }
         
         store.add(fullMessage);
